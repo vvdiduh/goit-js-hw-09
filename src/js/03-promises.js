@@ -4,6 +4,7 @@ form.addEventListener('submit', submit);
 
 function createPromise(position, delay) {
     const shouldResolve = Math.random() > 0.3;
+    
     return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (shouldResolve) {
@@ -22,18 +23,25 @@ function submit (event) {
   let delay = Number(event.target.delay.value);
   const delayStep = Number(event.target.step.value);
   const amount = Number(event.target.amount.value);
-  // console.log(parametersPromis.delay, parametersPromis.delayStep, parametersPromis.position);
+
   for (let i = 0; i < amount; i += 1) {
-    // console.log(`${i + 1} проміс`);
-    // console.log('затримка:', delay);
+
     createPromise(i, delay)
       .then(({ position, delay }) => {
+        // console.log(position, delay);
+        if (delay < 0) {
+          console.log('Значення не може бути відємним');
+          return;
+        }
         console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
       })
       .catch(({ position, delay }) => {
         console.log(`❌ Rejected promise ${position} in ${delay}ms`);
       });
     delay += delayStep;
-  }
-  
+  } 
+}
+
+function error() {
+  console.log("Значення не може бути відємним");
 }

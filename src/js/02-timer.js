@@ -39,14 +39,14 @@ refs.startBtn.disabled = true;
 flatpickr(refs.inputDate, options);
 
 function timer () {
-        setInterval(() => {;
+        const timerId = setInterval(() => {;
             const nowDate = new Date().getTime();
             const deltaTime = finishTime - nowDate;
             const { days, hours, minutes, seconds } = convertMs(deltaTime);
             updateClockFace({ days, hours, minutes, seconds })
             console.log(deltaTime);
             if (deltaTime < 1000) {
-                clearInterval
+                clearInterval(timerId);
             }
         }, 1000)
     refs.startBtn.disabled = true;
